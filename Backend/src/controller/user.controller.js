@@ -1,13 +1,13 @@
 // PRODUCTS
-export function getProductList(req,res){}
-export function getProdDetail(req,res){}
+export async function getProductList(req,res){}
+export async function getProdDetail(req,res){}
 // CARTS
-export function getCart(req,res){}
-export function postAddToCart(req,res){}
-export function putChangeProdQuan(req,res){}
-export function delProd(req,res){}
-export function delCart(req,res){}
+export async function getCart(req,res){}
+export async function postAddToCart(req,res){}
+export async function putChangeProdQuan(req,res){}
+export async function delProd(req,res){}
+export async function delCart(req,res){}
 // ORDERS
-export function postCreateOrder(req,res){}
-export function getOrderHis(req,res){}
-export function getOrderDetail(req,res){}
+export async function postCreateOrder(req,res){}
+export async function getOrderHis(req,res){}
+export async function getOrderDetail(req,res){}

@@ -17,4 +17,4 @@ userRouter.post("/orders", userController.postCreateOrder);
 userRouter.get("/orders", userController.getOrderHis);
 userRouter.get("/orders/:id", userController.getOrderDetail);
 
-export default userRouter();
+export default userRouter;

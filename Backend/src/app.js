@@ -12,4 +12,4 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
 
-export default app();
+export default app;
