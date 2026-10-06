@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const ItemSchema = mongoose.Schema({
-  // name, desc, price, category, imgs, stocks, brand, isActive
+  // name, description, price,discount , category, photo, stock, brand
   name: {
     required: true,
     type: String,
@@ -12,6 +12,15 @@ const ItemSchema = mongoose.Schema({
   },
   price: {
     type: Number,
+    required: true,
+  },
+  discount:{
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  category:{
+    type: String,
     required: true,
   },
   photo: [
@@ -29,10 +38,6 @@ const ItemSchema = mongoose.Schema({
   brand: {
     type: String,
     required: false,
-  },
-  isActive: {
-    type: Boolean,
-    required: true,
   },
 });
 

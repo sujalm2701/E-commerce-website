@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import Item from "./item.model";
-// name, email, password, role(user,admin), address, cart, orders
+// name, email, phoneNo, password, role(user,admin), address, cart, orders
 const userSchema = mongoose.Schema({
   name: {
     type: String,
@@ -12,6 +12,11 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
     trim: true,
+  },
+  phoneNo:{
+    type: Number,
+    required: true,
+    unique: true
   },
   password: {
     type: string,
@@ -39,8 +44,18 @@ const userSchema = mongoose.Schema({
   ],
   orders: [
     {
-      type: Schema.Types.ObjectId,
-      ref: Item,
+      name: String,
+      description: String,
+      price: Number,
+      quantity: Number,
+      discount: Number,
+      category: String,
+      brand: String,
+      status:{
+        type: String,
+        enum: ["pending", "conformed", "shipped", "delivered", "cancelled"],
+        default: "pending"
+      },
       validate: {
         validator: function (value) {
           return this.role === "user";
@@ -48,6 +63,28 @@ const userSchema = mongoose.Schema({
       },
     },
   ],
+  orderHis: [
+    {
+      name: String,
+      description: String,
+      price: Number,
+      quantity: Number,
+      discount: Number,
+      category: String,
+      brand: String,
+      status:{
+        type: String,
+        enum: ["pending", "conformed", "shipped", "delivered", "cancelled"],
+        default: "pending"
+      },
+      validate: {
+        validator: function (value) {
+          return this.role === "user";
+        },
+      },
+    },
+  ],
+  
 });
 
 const UserModel = mongoose.model("UserModel", userSchema);
