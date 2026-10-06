@@ -7,7 +7,7 @@ const userRouter = Router();
 userRouter.get("/products", userController.getProductList);
 userRouter.get("/products/:id", userController.getProdDetail);
 // cart
-userRouter.get("/cart", userController.getCart);
+userRouter.get("/cart/:id", userController.getCart);//id--person's _id
 userRouter.post("/cart", userController.postAddToCart);
 userRouter.put("/cart/:productId", userController.putChangeProdQuan);
 userRouter.delete("/cart/:productId", userController.delProd);
