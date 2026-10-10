@@ -7,12 +7,12 @@ const adminRouter = Router()
 // products
 userRouter.get("/products", adminController.getProductList )
 userRouter.post("/products", adminController.postAddProd )
-userRouter.put("/products/:id", adminController.putEditProd )
+userRouter.put("/products", adminController.putEditProd )
 userRouter.delete("/products/:id", adminController.delProd )
 
 // orders
 userRouter.get("/orders", adminController.getCustOrder )
-userRouter.get("/orders/:id", adminController.getOrderDetail )
+userRouter.get("/orders/:userId/:ordId", adminController.getOrderDetail )
 userRouter.put("/orders/:id/status", adminController.putEditStatus )
 
 // users
