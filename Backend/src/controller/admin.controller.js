@@ -63,7 +63,7 @@ export async function delProd(req, res) {
 
 // orders
 export async function getCustOrder(req, res) {
-  const id = req.params.id;
+  const _id = req.session.userId;
   const user = await UserModel.findOne({ _id });
   if (user) {
     res.json({
@@ -74,7 +74,7 @@ export async function getCustOrder(req, res) {
   }
 }
 export async function getOrderDetail(req, res) {
-  const userId = req.params.userId;
+  const userId = req.session.userId;
   const ordId = req.params.ordId;
   const user = await UserModel.findOne({ _id: userId });
   if (user) {
@@ -88,7 +88,8 @@ export async function getOrderDetail(req, res) {
 }
 export async function putEditStatus(req, res) {
   //validation left
-  const {userId, ordId, status} = req.body
+  const userId = req.session.userId;
+  const { ordId, status} = req.body
   const user = await UserModel.findOne({ _id: userId });
   if (user) {
     const orderDetail = user.orders.filter((ord) => ord._id == ordId);
@@ -111,7 +112,7 @@ export async function getUserList(req, res) {
   res.json({users})
 }
 export async function getUserDetails(req, res) {
-  const id = req.params.id
+  const id = req.session.userId;
   const userDetails  = await UserModel.findById(id)
   if(!userDetails){
     return res.json({err : "There was some error."})
@@ -119,7 +120,7 @@ export async function getUserDetails(req, res) {
   res.json({userDetails})
 }
 export async function delUser(req, res) {
-  const id = req.params.id;
+  const id = req.session.userId;
   await UserModel.findByIdAndDelete(id)
   res.json({message: "User successfully removed"})
 }

@@ -12,12 +12,12 @@ userRouter.delete("/products/:id", adminController.delProd )
 
 // orders
 userRouter.get("/orders", adminController.getCustOrder )
-userRouter.get("/orders/:userId/:ordId", adminController.getOrderDetail )
-userRouter.put("/orders/:id/status", adminController.putEditStatus )
+userRouter.get("/orders/:ordId", adminController.getOrderDetail )
+userRouter.put("/orders/status", adminController.putEditStatus )
 
 // users
 userRouter.get("/users", adminController.getUserList )
-userRouter.get("/users/:id", adminController.getUserDetails )
+userRouter.get("/userDetails", adminController.getUserDetails )
 userRouter.delete("/users/:id", adminController.delUser )
 
 

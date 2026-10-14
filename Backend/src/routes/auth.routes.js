@@ -5,9 +5,8 @@ const authRouter = Router();
 // ex- /api/auth/register
 
 // products
-userRouter.post("/register", authController.postCreateAcc);
-userRouter.post("/login", authController.postAuthUser);
-userRouter.get("/me", authController.getInfo);
-userRouter.post("/logout", authController.postDelUser);
+userRouter.post("/register", authController.postSignUp);
+userRouter.post("/login", authController.postSignIn)
+userRouter.post("/logout", authController.postLogout);
 
 export default authRouter;

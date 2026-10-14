@@ -33,7 +33,7 @@ export async function getSearchItem(req, res) {
     return res.json({err: "Nothing serached yet"})
   }
 
-  const product = await ItemModel.find({
+  const products = await ItemModel.find({
     $or: [//or--to give result if any of these matches
       {name: {$regex: q, $options: "i"}},//regex--it mean what should be found //option: "i"--means it is not casesensitive
       {category: {$regex: q, $options: "i"}},
@@ -44,12 +44,12 @@ export async function getSearchItem(req, res) {
     return res.json({err: "No product with this name/ category is found."})
   }
   res.json({
-    product
+    products
   })
 }
 // CARTS
 export async function getCart(req, res) {
-  const _id = req.params.id;
+  const _id = req.session.userId;
   const user = await UserModel.findOne({ _id });
   if (user) {
     await user.populate("cart");
@@ -61,8 +61,8 @@ export async function getCart(req, res) {
   }
 }
 export async function postAddToCart(req, res) {
-  const userId = req.body.user;
-  const productId = req.body.product;
+  const userId = req.session.userId;
+  const productId = req.body.product;//from body
   const user = await UserModel.findOne({ _id: userId });
   if (user) {
     const cart = user.cart;
@@ -79,8 +79,8 @@ export async function postAddToCart(req, res) {
   }
 }
 export async function delProd(req, res) {
-  const userId = req.body.user;
-  const productId = req.body.product;
+  const userId = req.session.userId;
+  const productId = req.params.productId;
   const user = await UserModel.findOne({ _id: userId });
   if (user) {
     let cart = user.cart;
@@ -97,7 +97,7 @@ export async function delProd(req, res) {
   }
 }
 export async function delCart(req, res) {
-  const userId = req.body.user;
+  const userId = req.session.userId;
   const productId = req.body.product;
   const user = await UserModel.findOne({ _id: userId });
   if (user) {
@@ -115,7 +115,7 @@ export async function delCart(req, res) {
 }
 // ORDERS
 export async function getOrderList(req, res) {
-  const _id = req.params.id;
+  const _id = req.session.userId;
   const user = await UserModel.findOne({ _id });
   if (user) {
     res.json({
@@ -126,7 +126,8 @@ export async function getOrderList(req, res) {
   }
 }
 export async function postCreateOrder(req, res) {
-  const { productId, userId, name, phoneNo, address, quantity } = req.body;
+  const userId = req.session.userId;
+  const { productId, name, phoneNo, address, quantity } = req.body;
   const credentials = {
     name,
     phoneNo,
@@ -157,7 +158,7 @@ export async function postCreateOrder(req, res) {
   }
 }
 export async function getOrderHis(req, res) {
-  const _id = req.params.id;
+  const _id = req.session.userId;
   const user = await UserModel.findOne({ _id });
   if (user) {
     res.json({
@@ -168,7 +169,7 @@ export async function getOrderHis(req, res) {
   }
 }
 export async function getOrderDetail(req, res) {
-  const userId = req.params.userId;
+  const userId = req.session.userId;
   const ordId = req.params.ordId;
   const user = await UserModel.findOne({ _id: userId });
   if (user) {
@@ -181,7 +182,7 @@ export async function getOrderDetail(req, res) {
   }
 }
 export async function postCancelOrder(req, res) {
-  const userId = req.body.userId;
+  const userId = req.session.userId;
   const ordId = req.body.ordId;
   const user = await UserModel.findOne({ _id: userId });
   if (user) {
