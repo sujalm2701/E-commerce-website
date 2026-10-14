@@ -125,9 +125,30 @@ export async function getOrderList(req, res) {
     res.json({ err: "Please try again." });
   }
 }
-export async function postCreateOrder(req, res) {
+export const postCreateOrder=[
+  check([
+      "name", "phoneNo", "address", "quantity"
+    ])
+      .trim()
+      .notEmpty()
+      .withMessage("Fields should not be empty."),
+    check(["phoneNo", "quantity"])
+      .custom((value) => typeof value === "number")
+      .withMessage("Invalid input type"),
+    check(["name", "address"])
+      .isString()
+      .withMessage("Invalid input type"),
+    check("address")
+      .isLength({ min: 5, max: 100 })
+      .withMessage("address should be proper"),
+    , async (req, res)=> {
+  // validation
   const userId = req.session.userId;
   const { productId, name, phoneNo, address, quantity } = req.body;
+  const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.json({ errors });
+      }
   const credentials = {
     name,
     phoneNo,
@@ -156,7 +177,7 @@ export async function postCreateOrder(req, res) {
   } else {
     res.json({ err: "Invalid user Creadentials", credentials });
   }
-}
+}]
 export async function getOrderHis(req, res) {
   const _id = req.session.userId;
   const user = await UserModel.findOne({ _id });

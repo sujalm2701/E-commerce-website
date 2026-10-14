@@ -18,7 +18,7 @@ userRouter.put("/orders/status", adminController.putEditStatus )
 // users
 userRouter.get("/users", adminController.getUserList )
 userRouter.get("/userDetails", adminController.getUserDetails )
-userRouter.delete("/users/:id", adminController.delUser )
+userRouter.delete("/delUsers", adminController.delUser )
 
 
 export default adminRouter;
