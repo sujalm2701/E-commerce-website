@@ -5,5 +5,5 @@ import connectDB from "./src/config/database.js";
 
 app.listen(config.PORT,async ()=>{
     await connectDB()
-    console.log(`Server is runing on PORT - ${config.PORT} and i connected to mongodb`)
+    console.log(`Server is runing on PORT - ${config.PORT} and is connected to mongodb`)
 })
