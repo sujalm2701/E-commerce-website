@@ -1,7 +1,7 @@
 import { check, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 
-import UserModel from "../model/user.model";
+import UserModel from "../model/user.model.js";
 export const postSignUp = [
   check("name")
     .trim()

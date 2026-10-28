@@ -1,7 +1,7 @@
 import { check, validationResult } from "express-validator";
-
-import UserModel from "../model/user.model";
-import ItemModel from "../model/user.model";
+import upload from "../config/multer.config.js";
+import UserModel from "../model/user.model.js";
+import ItemModel from "../model/user.model.js";
 
 // products
 export async function getProductList(req, res) {
@@ -42,6 +42,8 @@ export const postAddProd = [
     .withMessage("discount and stock should be between 0 to 100"),
   ,
   async (req, res) => {
+    await upload.array("photo",3)
+    const photoPaths = req.files.map(file => file.filename);
     const {
       name,
       description,
@@ -62,7 +64,7 @@ export const postAddProd = [
       price,
       discount,
       category,
-      photo,
+      photo: photoPaths,
       stock,
       brand,
     });

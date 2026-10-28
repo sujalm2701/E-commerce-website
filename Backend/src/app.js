@@ -1,15 +1,14 @@
-
 // PACKAGES
 import express from "express";
 // CONFIGS
-import sessionMiddleware from "./config/sessions";
+import sessionMiddleware from "./config/sessions.js";
 // ROUTES
-import userRouter from "./routes/user.routes";
-import adminRouter from "./routes/admin.routes";
-import authRouter from "./routes/auth.routes";
+import userRouter from "./routes/user.routes.js";
+import adminRouter from "./routes/admin.routes.js";
+import authRouter from "./routes/auth.routes.js";
 
 const app = express();
-
+app.use(express.static("public"));
 app.use(express.urlencoded());
 app.use(sessionMiddleware);
 // APIs

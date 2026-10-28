@@ -1,5 +1,5 @@
-import UserModel from "../model/user.model";
-import ItemModel from "../model/user.model";
+import UserModel from "../model/user.model.js";
+import ItemModel from "../model/user.model.js";
 
 // PRODUCTS
 export async function getProductList(req, res) {

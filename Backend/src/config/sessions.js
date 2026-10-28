@@ -2,12 +2,12 @@ import session from "express-session";
 import MongoDBStore from "connect-mongodb-session";
 
 const sessionMiddleware = session({
-    secret: "12345",
+    secret: config.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 
     store: MongoDBStore.create({
-      mongoUrl: "1234",
+      mongoUrl: config.MONGO_URI,
       collection: "sessions",
     }),
     cookie: {

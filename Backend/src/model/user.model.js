@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import Item from "./item.model";
+import Item from "./item.model.js";
 // name, email, phoneNo, password, role(user,admin), address, cart, orders, orderHis
 const userSchema = mongoose.Schema({
   name: {
