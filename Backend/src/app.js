@@ -10,12 +10,13 @@ import authRouter from "./routes/auth.routes.js";
 const app = express();
 app.use(express.static("public"));
 app.use(express.urlencoded());
+app.use(express.json())
 app.use(sessionMiddleware);
 // APIs
 app.use("/api/auth", authRouter);
 app.use((req, res, next) => {
-  if (!req.session.isLogged) {
-    return res.json({ message: "Please logIn first" });
+  if (!req.session.isLoggedIn) {
+    return res.status(401).json({ message: "Please logIn first" });
   } else {
     next();
   }
@@ -26,7 +27,7 @@ app.use(
   "/api/user",
   (req, res, next) => {
     if (req.session.role !== "user") {
-      return res.json({ err: "Access denied" });
+      return res.status(403).json({ err: "Access denied" });
     } else {
       next();
     }
@@ -37,7 +38,7 @@ app.use(
   "/api/admin",
   (req, res, next) => {
     if (req.session.role !== "admin") {
-      return res.json({ err: "Access denied" });
+      return res.status(403).json({ err: "Access denied" });
     } else {
       next();
     }
@@ -45,4 +46,8 @@ app.use(
   adminRouter,
 );
 
+// API status responses
+app.use("/api", (req, res, next) => {
+  res.status(404).json({ err: "API route not found." });
+});
 export default app;

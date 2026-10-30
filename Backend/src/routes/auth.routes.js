@@ -5,8 +5,8 @@ const authRouter = Router();
 // ex- /api/auth/register
 
 // products
-userRouter.post("/register", authController.postSignUp);
-userRouter.post("/login", authController.postSignIn)
-userRouter.post("/logout", authController.postLogout);
+authRouter.post("/register", authController.postSignUp);
+authRouter.post("/login", authController.postSignIn)
+authRouter.post("/logout", authController.postLogout);
 
 export default authRouter;

@@ -1,5 +1,6 @@
 import session from "express-session";
 import MongoDBStore from "connect-mongodb-session";
+import config from "../config.js"
 
 const sessionMiddleware = session({
     secret: config.SESSION_SECRET,

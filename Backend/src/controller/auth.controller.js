@@ -46,7 +46,7 @@ export const postSignUp = [
     if (!errors.isEmpty()) {
       return res.json({ errors });
     } else {
-      const hashedPassword = bcrypt.hash(password, 12);
+      const hashedPassword = await bcrypt.hash(password, 12);
       const user = await new UserModel.create({
         name,
         email,
@@ -76,19 +76,21 @@ export async function postSignIn(req, res) {
   email = email.trim().toLowerCase();
   const user = await UserModel.findOne({ email });
   if (!user) {
-    return res.json({ err: "User not found." });
+    return res.status(404).json({ err: "User not found." });
   }
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch || user.name !== userName) {
-    return res.json({ err: "User not found." });
+    return res.status(401).json({ err: "User not found." });
   }
   req.session.isLoggedIn = true;
   req.session.role = user.role;
   req.session.userId = user._id.toString();
-  res.json({ user });
+  const userCred = user.toObject();
+  delete userCred.password;
+  return res.status(200).json({ userCred });
 }
 export async function postLogout(req, res) {
   req.session.destroy(() => {
-    res.redirect("/api/auth/postSignIn");
+    return res.status(200).json({ message: "Logged out successfully" });
   });
 }

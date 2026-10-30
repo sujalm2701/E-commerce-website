@@ -1,24 +1,27 @@
 import { Router } from "express";
-import * as adminController from "../controller/admin.controller.js"
-
-const adminRouter = Router()
+import * as adminController from "../controller/admin.controller.js";
+import upload from "../config/multer.config.js"
+const adminRouter = Router();
 // ex- /api/admin/products
 
 // products
-userRouter.get("/products", adminController.getProductList )
-userRouter.post("/products", adminController.postAddProd )
-userRouter.put("/products", adminController.putEditProd )
-userRouter.delete("/products/:id", adminController.delProd )
+adminRouter.get("/products", adminController.getProductList);
+adminRouter.post(
+  "/products",
+  upload.array("photo", 3),
+  adminController.postAddProd,
+);
+adminRouter.put("/products", adminController.putEditProd);
+adminRouter.delete("/products/:id", adminController.delProd);
 
 // orders
-userRouter.get("/orders", adminController.getCustOrder )
-userRouter.get("/orders/:ordId", adminController.getOrderDetail )
-userRouter.put("/orders/status", adminController.putEditStatus )
+adminRouter.get("/orders", adminController.getCustOrder);
+adminRouter.get("/orders/:ordId", adminController.getOrderDetail);
+adminRouter.put("/orders/status", adminController.putEditStatus);
 
 // users
-userRouter.get("/users", adminController.getUserList )
-userRouter.get("/userDetails", adminController.getUserDetails )
-userRouter.delete("/delUsers", adminController.delUser )
-
+adminRouter.get("/users", adminController.getUserList);
+adminRouter.get("/userDetails", adminController.getUserDetails);
+adminRouter.delete("/delUsers", adminController.delUser);
 
 export default adminRouter;
